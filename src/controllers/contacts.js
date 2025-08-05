@@ -41,17 +41,7 @@ export const getContactByIdController = async (req, res) => {
   });
 };
 export const createContactController = async (req, res) => {
-  const { name, phoneNumber, email, isFavourite, contactType } = req.body;
-  if (!name || !phoneNumber || !contactType) {
-    throw createHttpError(400, 'Missing required fields:');
-  }
-  const newContact = await createContact({
-    name,
-    phoneNumber,
-    email,
-    isFavourite,
-    contactType,
-  });
+  const newContact = await createContact(req.body);
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
