@@ -13,7 +13,7 @@ import {
 } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 import path from 'node:path';
-import { sendMail } from '../utils/sendMail';
+import { sendMail } from '../utils/sendMail.js';
 
 const createSession = () => {
   const accessToken = randomBytes(30).toString('base64');
