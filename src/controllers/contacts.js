@@ -11,6 +11,7 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 
 export const getContactsController = async (req, res) => {
   const { sortBy, sortOrder } = parseSortParams(req.query);
@@ -48,7 +49,7 @@ export const createContactController = async (req, res) => {
   let photoUrl = null;
   if (req.file) {
     photoUrl =
-      process.env.ENABLE_CLOUDINARY === 'true'
+      getEnvVar('ENABLE_CLOUDINARY') === 'true'
         ? await saveFileToCloudinary(req.file)
         : await saveFileToUploadDir(req.file);
   }
@@ -65,7 +66,7 @@ export const updateContactByIdController = async (req, res) => {
   const updates = { ...req.body };
   if (req.file) {
     updates.photo =
-      process.env.ENABLE_CLOUDINARY === 'true'
+      getEnvVar('ENABLE_CLOUDINARY') === 'true'
         ? await saveFileToCloudinary(req.file)
         : await saveFileToUploadDir(req.file);
   }

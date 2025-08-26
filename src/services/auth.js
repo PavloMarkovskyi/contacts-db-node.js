@@ -12,6 +12,7 @@ import {
   TEMPLATES_DIR,
 } from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 import path from 'node:path';
 import { sendMail } from '../utils/sendMail.js';
 
@@ -114,7 +115,7 @@ export const requestResetToken = async (email) => {
       sub: user._id,
       email,
     },
-    process.env.JWT_SECRET,
+    getEnvVar('JWT_SECRET'),
     { expiresIn: '5m' },
   );
   const resetPasswordTemplatePath = path.join(
@@ -127,11 +128,11 @@ export const requestResetToken = async (email) => {
   const template = handlebars.compile(templateSource);
   const html = template({
     name: user.name,
-    link: `${process.env.APP_DOMAIN}/reset-password?token=${resetToken}`,
+    link: `${getEnvVar('APP_DOMAIN')}/reset-password?token=${resetToken}`,
   });
   try {
     await sendMail({
-      from: process.env[SMTP.SMTP_FROM],
+      from: getEnvVar(SMTP.SMTP_FROM),
       to: email,
       subject: 'Reset your password',
       html,
@@ -146,7 +147,7 @@ export const requestResetToken = async (email) => {
 export const resetPassword = async ({ token, password }) => {
   let payload;
   try {
-    payload = jwt.verify(token, process.env.JWT_SECRET);
+    payload = jwt.verify(token, getEnvVar('JWT_SECRET'));
   } catch {
     throw createHttpError(401, 'Token is expired or invalid.');
   }
