@@ -1,0 +1,20 @@
+type: object
+properties:
+  data:
+    type: array
+    items:
+      $ref: './Contact.yaml'
+  totalItems:
+    type: integer
+    description: Total number of contacts
+  totalPages:
+    type: integer
+    description: Total number of pages
+  currentPage:
+    type: integer
+    description: Current page number
+required:
+  - data
+  - totalItems
+  - totalPages
+  - currentPage

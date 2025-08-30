@@ -1,0 +1,25 @@
+tags:
+  - Auth
+summary: User registration
+operationId: signUp
+description: Create a new user with email and password.
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/AuthRequest.yaml'
+responses:
+  '201':
+    description: User successfully created
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/AuthResponse.yaml'
+  '400':
+    description: Bad Request
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/Error.yaml'

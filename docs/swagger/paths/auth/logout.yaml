@@ -1,0 +1,16 @@
+tags:
+  - Auth
+summary: User logout
+operationId: logout
+description: Logs out the authenticated user.
+security:
+  - bearerAuth: []
+responses:
+  '204':
+    description: User successfully logged out
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/Error.yaml'

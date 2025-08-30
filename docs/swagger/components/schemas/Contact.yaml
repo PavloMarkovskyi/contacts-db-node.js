@@ -1,0 +1,33 @@
+type: object
+properties:
+  _id:
+    type: string
+    description: Unique identifier of the contact
+  name:
+    type: string
+    description: Name of the contact
+  email:
+    type: string
+    description: Email of the contact
+  phone:
+    type: string
+    description: Phone number of the contact
+  contactType:
+    type: string
+    description: Type of the contact (personal, work, etc.)
+  isFavourite:
+    type: boolean
+    description: Indicates if the contact is a favourite
+  createdAt:
+    type: string
+    format: date-time
+    description: Date of creation
+  updatedAt:
+    type: string
+    format: date-time
+    description: Date of last update
+required:
+  - _id
+  - name
+  - email
+  - phone

@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: Contacts API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: >
+    This is an API for managing contacts.  
+    It supports CRUD operations and user authentication.
+tags:
+  - name: Contacts
+    description: API endpoints related to contacts
+  - name: Auth
+    description: API endpoints related to user authentication
+servers:
+  - url: http://localhost:3000
+  - url: https://your-deployed-backend-url.onrender.com
+paths:
+  /contacts:
+    get:
+      $ref: './swagger/paths/contacts/get.yaml'
+    post:
+      $ref: './swagger/paths/contacts/post.yaml'
+
+  /contacts/{id}:
+    get:
+      $ref: './swagger/paths/contacts/{id}/get.yaml'
+    patch:
+      $ref: './swagger/paths/contacts/{id}/patch.yaml'
+    delete:
+      $ref: './swagger/paths/contacts/{id}/delete.yaml'
+  /auth/sign-up:
+    post:
+      $ref: './swagger/paths/auth/sign-up.yaml'
+
+  /auth/sign-in:
+    post:
+      $ref: './swagger/paths/auth/sign-in.yaml'
+
+  /auth/logout:
+    post:
+      $ref: './swagger/paths/auth/logout.yaml'
+
+  /auth/refresh:
+    post:
+      $ref: './swagger/paths/auth/refresh.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+  schemas:
+    Contact:
+      $ref: './swagger/components/schemas/Contact.yaml'
+    ContactInput:
+      $ref: './swagger/components/schemas/ContactInput.yaml'
+    ContactsList:
+      $ref: './swagger/components/schemas/ContactsList.yaml'
+    AuthRequest:
+      $ref: './swagger/components/schemas/AuthRequest.yaml'
+    AuthResponse:
+      $ref: './swagger/components/schemas/AuthResponse.yaml'
