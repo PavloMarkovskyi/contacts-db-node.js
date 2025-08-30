@@ -15,7 +15,7 @@ tags:
     description: API endpoints related to user authentication
 servers:
   - url: http://localhost:3000
-  - url: https://your-deployed-backend-url.onrender.com
+  - url: https://nodejs-hw-mongodb-iydf.onrender.com
 paths:
   /contacts:
     get:
