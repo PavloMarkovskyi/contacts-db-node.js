@@ -1,0 +1,18 @@
+tags:
+  - Auth
+summary: Get Google OAuth URL
+description: Returns a Google OAuth URL for user authentication.
+operationId: getGoogleOAuthUrl
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: OAuth URL successfully generated
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/GoogleOAuthUrlResponse.yaml'
+  '400':
+    description: Bad request
+  '401':
+    description: Unauthorized

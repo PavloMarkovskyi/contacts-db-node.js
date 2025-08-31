@@ -476,6 +476,82 @@
           }
         }
       }
+    },
+    "/auth/get-oauth-url": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get Google OAuth URL",
+        "description": "Returns a Google OAuth URL for user authentication.",
+        "operationId": "getGoogleOAuthUrl",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OAuth URL successfully generated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoogleOAuthUrlResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/auth/confirm-oauth": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Confirm Google OAuth",
+        "description": "Confirms Google OAuth authentication and returns JWT tokens.",
+        "operationId": "confirmGoogleOAuth",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleConfirmOAuthRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully authenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoogleConfirmOAuthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or missing parameters"
+          },
+          "401": {
+            "description": "Unauthorized or invalid OAuth token"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -654,6 +730,64 @@
           "accessToken",
           "refreshToken"
         ]
+      },
+      "GoogleOAuthUrlResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Successfully get Google OAuth url!"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://accounts.google.com/o/oauth2/v2/auth?client_id=..."
+              }
+            }
+          }
+        }
+      },
+      "GoogleConfirmOAuthRequest": {
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Authorization code from Google"
+          }
+        }
+      },
+      "GoogleConfirmOAuthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "example": "Successfully logged in via Google OAuth!"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "accessToken": {
+                "type": "string",
+                "description": "JWT access token",
+                "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+              }
+            }
+          }
+        }
       },
       "Error": {
         "type": "object",
