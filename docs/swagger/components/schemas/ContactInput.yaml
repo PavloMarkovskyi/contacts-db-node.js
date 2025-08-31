@@ -5,17 +5,23 @@ properties:
     description: Name of the contact
   email:
     type: string
+    format: email
     description: Email of the contact
-  phone:
+  phoneNumber:
     type: string
     description: Phone number of the contact
   contactType:
     type: string
-    description: Type of the contact (personal, work, etc.)
+    enum: [work, home, personal]
+    description: Type of the contact
   isFavourite:
     type: boolean
     description: Indicates if the contact is a favourite
+  photo:
+    type: string
+    format: binary
+    description: Photo of the contact (file upload)
 required:
   - name
-  - email
-  - phone
+  - phoneNumber
+  - contactType

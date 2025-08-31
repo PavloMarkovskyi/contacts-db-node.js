@@ -8,7 +8,7 @@ security:
 requestBody:
   required: true
   content:
-    application/json:
+    multipart/form-data:
       schema:
         $ref: '../../components/schemas/ContactInput.yaml'
 responses:
@@ -18,8 +18,8 @@ responses:
       application/json:
         schema:
           $ref: '../../components/schemas/Contact.yaml'
-  '404':
-    description: Not Found
+  '400':
+    description: Validation error
     content:
       application/json:
         schema:

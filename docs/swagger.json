@@ -133,7 +133,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/ContactInput"
               }
@@ -151,8 +151,8 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
@@ -237,7 +237,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "$ref": "#/components/schemas/ContactInput"
               }
@@ -251,6 +251,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Contact"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -489,19 +499,34 @@
           },
           "email": {
             "type": "string",
+            "format": "email",
             "description": "Email of the contact"
           },
-          "phone": {
+          "phoneNumber": {
             "type": "string",
             "description": "Phone number of the contact"
           },
           "contactType": {
             "type": "string",
-            "description": "Type of the contact (personal, work, etc.)"
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "description": "Type of the contact"
           },
           "isFavourite": {
             "type": "boolean",
             "description": "Indicates if the contact is a favourite"
+          },
+          "photo": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the contact photo (Cloudinary or local uploads)"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ID of the user who owns this contact"
           },
           "createdAt": {
             "type": "string",
@@ -517,8 +542,12 @@
         "required": [
           "_id",
           "name",
-          "email",
-          "phone"
+          "phoneNumber",
+          "contactType",
+          "isFavourite",
+          "userId",
+          "createdAt",
+          "updatedAt"
         ]
       },
       "ContactInput": {
@@ -530,25 +559,36 @@
           },
           "email": {
             "type": "string",
+            "format": "email",
             "description": "Email of the contact"
           },
-          "phone": {
+          "phoneNumber": {
             "type": "string",
             "description": "Phone number of the contact"
           },
           "contactType": {
             "type": "string",
-            "description": "Type of the contact (personal, work, etc.)"
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "description": "Type of the contact"
           },
           "isFavourite": {
             "type": "boolean",
             "description": "Indicates if the contact is a favourite"
+          },
+          "photo": {
+            "type": "string",
+            "format": "binary",
+            "description": "Photo of the contact (file upload)"
           }
         },
         "required": [
           "name",
-          "email",
-          "phone"
+          "phoneNumber",
+          "contactType"
         ]
       },
       "ContactsList": {
