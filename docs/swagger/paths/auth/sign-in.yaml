@@ -1,0 +1,25 @@
+tags:
+  - Auth
+summary: User login
+operationId: signIn
+description: Authenticate user and return access & refresh tokens.
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/AuthRequest.yaml'
+responses:
+  '200':
+    description: Successful login
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/AuthResponse.yaml'
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/Error.yaml'

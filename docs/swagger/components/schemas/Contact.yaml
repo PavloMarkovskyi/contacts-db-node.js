@@ -1,0 +1,46 @@
+type: object
+properties:
+  _id:
+    type: string
+    description: Unique identifier of the contact
+  name:
+    type: string
+    description: Name of the contact
+  email:
+    type: string
+    format: email
+    description: Email of the contact
+  phoneNumber:
+    type: string
+    description: Phone number of the contact
+  contactType:
+    type: string
+    enum: [work, home, personal]
+    description: Type of the contact
+  isFavourite:
+    type: boolean
+    description: Indicates if the contact is a favourite
+  photo:
+    type: string
+    format: uri
+    description: URL to the contact photo (Cloudinary or local uploads)
+  userId:
+    type: string
+    description: ID of the user who owns this contact
+  createdAt:
+    type: string
+    format: date-time
+    description: Date of creation
+  updatedAt:
+    type: string
+    format: date-time
+    description: Date of last update
+required:
+  - _id
+  - name
+  - phoneNumber
+  - contactType
+  - isFavourite
+  - userId
+  - createdAt
+  - updatedAt

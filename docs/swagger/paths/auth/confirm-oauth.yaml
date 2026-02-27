@@ -1,0 +1,24 @@
+tags:
+  - Auth
+summary: Confirm Google OAuth
+description: Confirms Google OAuth authentication and returns JWT tokens.
+operationId: confirmGoogleOAuth
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/GoogleConfirmOAuthRequest.yaml'
+responses:
+  '200':
+    description: Successfully authenticated
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/GoogleConfirmOAuthResponse.yaml'
+  '400':
+    description: Invalid request or missing parameters
+  '401':
+    description: Unauthorized or invalid OAuth token

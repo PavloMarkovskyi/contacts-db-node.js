@@ -1,0 +1,20 @@
+tags:
+  - Auth
+summary: Refresh access token
+operationId: refreshToken
+description: Generate a new access token using the refresh token.
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Access token refreshed successfully
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/AuthResponse.yaml'
+  '401':
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/Error.yaml'

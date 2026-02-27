@@ -1,0 +1,52 @@
+tags:
+  - Contacts
+summary: Retrieve all contacts
+operationId: getContacts
+description: Get a paginated list of contacts. Supports optional filtering by contactType and isFavourite.
+security:
+  - bearerAuth: []
+parameters:
+  - name: page
+    in: query
+    schema:
+      type: integer
+    description: Page number
+  - name: perPage
+    in: query
+    schema:
+      type: integer
+    description: Number of items per page
+  - name: sortBy
+    in: query
+    schema:
+      type: string
+    description: Field to sort by
+  - name: sortOrder
+    in: query
+    schema:
+      type: string
+      enum: [ASC, DESC]
+    description: Sorting order
+  - name: contactType
+    in: query
+    schema:
+      type: string
+    description: Filter by contact type
+  - name: isFavourite
+    in: query
+    schema:
+      type: boolean
+    description: Filter by favourite status
+responses:
+  '200':
+    description: Successful retrieval of contacts
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/ContactsList.yaml'
+  '404':
+    description: Not found
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/Error.yaml'
